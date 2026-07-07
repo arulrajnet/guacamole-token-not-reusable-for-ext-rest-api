@@ -1,0 +1,1 @@
+# guacamole-token-not-reusable-for-ext-rest-api
