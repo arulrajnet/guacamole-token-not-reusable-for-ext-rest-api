@@ -1,0 +1,8 @@
+{
+  "guacamoleVersion" : "1.6.0",
+  "name"      : "Demo HTTP Authentication Extension",
+  "namespace" : "demo-http",
+  "authProviders" : [
+    "net.arulraj.demo.DemoHTTPAuthProvider"
+  ]
+}
