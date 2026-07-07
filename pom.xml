@@ -26,13 +26,36 @@
   <groupId>net.arulraj.demo</groupId>
   <artifactId>demo-http-auth</artifactId>
   <packaging>jar</packaging>
-  <version>1.6.0</version>
+  <version>1.0.0</version>
   <name>demo-http-auth</name>
   <url>https://arulraj.net/</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <guac.version>1.6.0</guac.version>
   </properties>
+
+  <profiles>
+    <profile>
+        <id>guac-1.5.5</id>
+        <properties>
+            <guac.version>1.5.5</guac.version>
+        </properties>
+        <build>
+          <finalName>${project.artifactId}-guac-${guac.version}</finalName>
+        </build>
+    </profile>
+
+    <profile>
+        <id>guac-1.6.0</id>
+        <properties>
+            <guac.version>1.6.0</guac.version>
+        </properties>
+        <build>
+          <finalName>${project.artifactId}-guac-${guac.version}</finalName>
+        </build>
+    </profile>
+  </profiles>
 
   <build>
     <plugins>
@@ -56,7 +79,7 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <version>2.5.3</version>
         <configuration>
-          <finalName>${project.artifactId}-${project.version}</finalName>
+          <finalName>${project.artifactId}-guac-${guac.version}</finalName>
           <appendAssemblyId>false</appendAssemblyId>
           <descriptors>
             <descriptor>src/main/assembly/dist.xml</descriptor>
@@ -102,7 +125,7 @@
       <groupId>org.apache.guacamole</groupId>
       <artifactId>guacamole-auth-header</artifactId>
       <scope>compile</scope>
-      <version>1.6.0</version>
+      <version>${guac.version}</version>
     </dependency>
 
     <!-- Guacamole Extension API -->
@@ -110,7 +133,7 @@
       <groupId>org.apache.guacamole</groupId>
       <artifactId>guacamole-ext</artifactId>
       <scope>provided</scope>
-      <version>1.6.0</version>
+      <version>${guac.version}</version>
     </dependency>
 
     <dependency>

@@ -73,6 +73,8 @@ services:
     configs:
       - source: logback-xml
         target: /iotium/mounted/logback.xml
+    volumes:
+      - ${PWD}/target/demo-http-auth-guac-1.6.0.jar:/opt/guacamole/extensions/guacamole-auth-header/guacamole-auth-header.jar:ro
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/guacamole/app.css || exit 1"]
       interval: 30s
@@ -95,14 +97,17 @@ services:
       GUACD_HOSTNAME: guacd
       POSTGRESQL_HOSTNAME: db
       POSTGRESQL_DATABASE: guacamole
-      POSTGRESQL_USERNAME: admin
+      POSTGRESQL_USER: admin
       POSTGRESQL_PASSWORD: secret
+      HEADER_ENABLED: "true"
       HTTP_AUTH_HEADER: X-Demo-User
       LOGBACK_LEVEL: debug
       LOG_LEVEL: DEBUG
     configs:
       - source: logback-xml
         target: /iotium/mounted/logback.xml
+    volumes:
+      - ${PWD}/target/demo-http-auth-guac-1.5.5.jar:/opt/guacamole/header/guacamole-auth-header-1.5.5.jar:ro
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/guacamole/app.css || exit 1"]
       interval: 30s
