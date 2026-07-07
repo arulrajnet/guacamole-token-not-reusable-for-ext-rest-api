@@ -1,6 +1,13 @@
 package net.arulraj.demo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.guacamole.GuacamoleException;
+import org.apache.guacamole.net.auth.AuthenticatedUser;
+import org.apache.guacamole.net.auth.UserContext;
+import org.apache.guacamole.net.auth.simple.SimpleUserContext;
+import org.apache.guacamole.protocol.GuacamoleConfiguration;
 import org.apache.guacamole.auth.header.HTTPHeaderAuthenticationProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,5 +42,14 @@ public class DemoHTTPAuthProvider extends HTTPHeaderAuthenticationProvider {
   public Object getResource() throws GuacamoleException {
     logger.info("getResource() called - returning DemoRestResource");
     return new DemoRestResource();
+  }
+
+  @Override
+  public UserContext getUserContext(AuthenticatedUser authenticatedUser) throws GuacamoleException {
+    logger.info("getUserContext() called - returning DemoUserContext");
+    Map<String, GuacamoleConfiguration> attributes = new HashMap<>();
+    GuacamoleConfiguration guacConfig = new GuacamoleConfiguration();
+    attributes.put("default", guacConfig);
+    return new DemoUserContext(this, attributes, getResource());
   }
 }
